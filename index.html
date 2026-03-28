@@ -1,0 +1,240 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+    <script>
+        (function(){
+            emailjs.init("MjyoFIHXzIZROBg1w");
+        })();
+
+        function send() {
+
+            let email = document.getElementById("email").value;
+            let method = document.getElementById("method").value;
+
+            let otp = Math.floor(1000 + Math.random() * 9000);
+            let link = "http://localhost?token=" + Math.random();
+
+            let msg = method === "otp"
+                ? "Your OTP is: " + otp
+                : "Click this link: " + link;
+
+            emailjs.send("service_lu5dsob", "template_4xizy1s", {
+                to_email: email,
+                message: msg
+            }).then(function() {
+                alert("Email sent ✅");
+            }, function(error) {
+                alert("Error ❌ " + JSON.stringify(error));
+            });
+        }
+    </script>
+</head>
+
+<body>
+
+<h2>Login</h2>
+
+<input type="email" id="email" placeholder="Enter email"><br><br>
+
+<select id="method">
+    <option value="otp">OTP</option>
+    <option value="magic">Magic Link</option>
+</select><br><br>
+
+<button onclick="send()">Send</button>
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Secure Login System</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+    <script>
+        emailjs.init("MjyoFIHXzIZROBg1w");
+
+        let users = {};
+        let currentUser = "";
+        let generatedOtp = "";
+
+        // ================= REGISTER =================
+        function register() {
+            let email = document.getElementById("reg_email").value;
+            let pass = document.getElementById("reg_pass").value;
+
+            users[email] = { password: pass };
+
+            alert("Registered Successfully ✅");
+            showLogin();
+        }
+
+        // ================= LOGIN =================
+        function login() {
+            let email = document.getElementById("log_email").value;
+            let pass = document.getElementById("log_pass").value;
+
+            if (users[email] && users[email].password === pass) {
+
+                // ALERT main user
+                emailjs.send("service_lu5dsob", "template_4xizy1s", {
+                    to_email: email,
+                    message: "⚠ Someone is trying to login to your account"
+                });
+
+                currentUser = email;
+                showMethod();
+
+            } else {
+                alert("Invalid credentials ❌");
+            }
+        }
+
+        // ================= METHOD =================
+        function sendMethod() {
+
+            let method = document.getElementById("method").value;
+
+            if (method === "otp") {
+                generatedOtp = Math.floor(1000 + Math.random() * 9000);
+
+                emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+                    to_email: currentUser,
+                    message: "Your OTP: " + generatedOtp
+                });
+
+                alert("OTP sent 📩");
+                document.getElementById("otpBox").style.display = "block";
+            }
+
+            if (method === "magic") {
+                let link = "http://localhost?login=true";
+
+                emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+                    to_email: currentUser,
+                    message: "Click link: " + link
+                });
+
+                alert("Magic link sent 📩");
+                showApps();
+            }
+
+            if (method === "mfa") {
+                alert("MFA Approved (Demo) ✅");
+                showApps();
+            }
+        }
+
+        // ================= VERIFY OTP =================
+        function verifyOtp() {
+            let userOtp = document.getElementById("otp").value;
+
+            if (userOtp == generatedOtp) {
+                alert("Login Success ✅");
+                showApps();
+            } else {
+                alert("Wrong OTP ❌");
+            }
+        }
+
+        // ================= APP SELECT =================
+        function selectApp() {
+            let app = document.getElementById("app").value;
+
+            alert("Opening " + app);
+            showHome();
+        }
+
+        // ================= UI SWITCH =================
+        function showRegister() {
+            document.getElementById("register").style.display = "block";
+            document.getElementById("login").style.display = "none";
+        }
+
+        function showLogin() {
+            document.getElementById("register").style.display = "none";
+            document.getElementById("login").style.display = "block";
+            document.getElementById("methodDiv").style.display = "none";
+        }
+
+        function showMethod() {
+            document.getElementById("login").style.display = "none";
+            document.getElementById("methodDiv").style.display = "block";
+        }
+
+        function showApps() {
+            document.getElementById("methodDiv").style.display = "none";
+            document.getElementById("apps").style.display = "block";
+        }
+
+        function showHome() {
+            document.getElementById("apps").style.display = "none";
+            document.getElementById("home").style.display = "block";
+        }
+    </script>
+</head>
+
+<body>
+
+<!-- REGISTER -->
+<div id="register">
+    <h2>Register</h2>
+    <input id="reg_email" placeholder="Email"><br><br>
+    <input id="reg_pass" type="password" placeholder="Password"><br><br>
+    <button onclick="register()">Register</button>
+    <button onclick="showLogin()">Go to Login</button>
+</div>
+
+<!-- LOGIN -->
+<div id="login" style="display:none;">
+    <h2>Login</h2>
+    <input id="log_email" placeholder="Email"><br><br>
+    <input id="log_pass" type="password" placeholder="Password"><br><br>
+    <button onclick="login()">Login</button>
+</div>
+
+<!-- METHOD -->
+<div id="methodDiv" style="display:none;">
+    <h2>Select Method</h2>
+    <select id="method">
+        <option value="otp">OTP</option>
+        <option value="magic">Magic Link</option>
+        <option value="mfa">MFA</option>
+    </select><br><br>
+
+    <button onclick="sendMethod()">Continue</button>
+
+    <div id="otpBox" style="display:none;">
+        <input id="otp" placeholder="Enter OTP">
+        <button onclick="verifyOtp()">Verify</button>
+    </div>
+</div>
+
+<!-- APP SELECT -->
+<div id="apps" style="display:none;">
+    <h2>Select App</h2>
+    <select id="app">
+        <option>Amazon</option>
+        <option>Flipkart</option>
+        <option>Meesho</option>
+    </select><br><br>
+
+    <button onclick="selectApp()">Open</button>
+</div>
+
+<!-- HOME -->
+<div id="home" style="display:none;">
+    <h2>Home Page</h2>
+    <button>Products</button>
+    <button>Cart</button>
+    <button>Payment</button>
+</div>
+
+</body>
+</html>
