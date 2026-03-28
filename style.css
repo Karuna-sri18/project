@@ -1,0 +1,121 @@
+/* body {
+    font-family: Arial;
+    margin: 0;
+    background: #f3f3f3;
+} */
+ body {
+    background: linear-gradient(120deg,#2980b9,#6dd5fa);
+    font-family: 'Segoe UI';
+}
+
+
+.header {
+    background: linear-gradient(45deg,#131921,#ff9900);
+    color: white;
+    padding: 15px;
+    font-size: 22px;
+    text-align: center;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-around;
+    background: #232f3e;
+    padding: 10px;
+}
+
+.nav a {
+    color: white;
+    text-decoration: none;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    margin: 15px;
+    border-radius: 12px;
+    width: 230px;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
+}
+
+button {
+    padding: 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.cart { background: orange; color: white; }
+.wish { background: red; color: white; }
+
+.buy {
+    background: green;
+    color: white;
+    font-size: 18px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {transform: scale(1);}
+    50% {transform: scale(1.1);}
+    100% {transform: scale(1);}
+} 
+ bg {
+    background: linear-gradient(45deg,#ff6a00,#ee0979);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-box {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+/* input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px;
+} */
+
+.login-box {
+    width: 320px;
+    margin: 100px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #2980b9;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
