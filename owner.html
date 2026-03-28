@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
+
+</head>
+
+<body>
+
+<nav>Owner Approval</nav>
+
+<div class="container">
+
+<h3>Login Request</h3>
+
+<select id="limit">
+
+<option value="10">10 sec</option>
+<option value="20">20 sec</option>
+<option value="30">30 sec</option>
+
+</select>
+
+<br><br>
+
+<button onclick="allowLogin()">
+Allow
+</button>
+
+<button onclick="denyLogin()">
+Deny
+</button>
+
+<p class="timerBox">
+Time left:
+<span id="ownerTime">
+10
+</span>
+</p>
+
+</div>
+
+<script>
+
+startOwnerTimer();
+
+</script>
+
+</body>
+</html>
