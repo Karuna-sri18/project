@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
+</head>
+
+<body>
+
+<div class="header">Secure Payment 💳</div>
+
+<div class="container">
+
+<h2>Order Summary</h2>
+<div id="summary"></div>
+
+<h2>Card Details</h2>
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" width="50">
+<img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" width="50"><br><br>
+
+<input id="card" placeholder="Card Number"><br><br>
+<input id="expiry" placeholder="MM/YY"><br><br>
+<input id="cvv" placeholder="CVV"><br><br>
+
+<button class="buy" onclick="sendPaymentOtp()">Pay Now</button>
+
+<!-- OTP BOX -->
+<div id="otpBox" style="display:none;">
+    <h3>Enter Payment OTP</h3>
+    <input id="payOtp" placeholder="OTP"><br><br>
+    <button onclick="verifyPayment()">Verify Payment</button>
+</div>
+
+</div>
+
+<script>
+
+// LOAD ORDER SUMMARY
+window.onload = function() {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let summary = document.getElementById("summary");
+
+    let total = 0;
+    summary.innerHTML = "";
+
+    cart.forEach(item => {
+        total += item.price * item.qty;
+
+        summary.innerHTML += `
+        <p>${item.name} x ${item.qty} = ₹${item.price * item.qty}</p>
+        `;
+    });
+
+    summary.innerHTML += `<h3>Total: ₹${total}</h3>`;
+}
+
+// SEND OTP
+function sendPaymentOtp() {
+
+    let otp = Math.floor(1000 + Math.random() * 9000);
+    localStorage.setItem("payOtp", otp);
+
+    alert("Payment OTP: " + otp); // demo purpose
+
+    document.getElementById("otpBox").style.display = "block";
+}
+
+// VERIFY PAYMENT
+function verifyPayment() {
+
+    let userOtp = document.getElementById("payOtp").value;
+    let realOtp = localStorage.getItem("payOtp");
+
+    if (userOtp == realOtp) {
+        alert("Payment Successful 🎉");
+
+        localStorage.removeItem("cart");
+
+        window.location.href = "home.html";
+    } else {
+        alert("Wrong OTP ❌");
+    }
+    function saveOrder(cart) {
+
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+    orders.push({
+        items: cart,
+        date: new Date().toLocaleString()
+    });
+
+    localStorage.setItem("orders", JSON.stringify(orders));
+}
+}
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</body>
+</html>
