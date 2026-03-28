@@ -1,0 +1,69 @@
+<!-- <!-- <link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
+<body onload="loadCart()">
+
+<div id="cartItems"></div>
+
+<div id="total" class="total"></div>
+
+<button onclick="location.href='payment.html'" class="buy">
+    Proceed to Payment
+</button>
+
+</body> -->
+<!-- cart.html -->
+<!-- <div class="product">
+  <h3>Product 1</h3>
+  <button onclick="addToCart('Product 1')">Add to Cart</button>
+</div>
+
+<div class="cart">
+  <h2>Cart</h2>
+  <ul id="cart-items"></ul>
+</div>
+
+<script>
+let cart = [];
+
+function addToCart(productName) {
+    cart.push(productName); // Add item to cart array
+    updateCartDisplay();
+}
+
+function updateCartDisplay() {
+    const cartList = document.getElementById('cart-items');
+    cartList.innerHTML = ""; // Clear previous list
+
+    cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        cartList.appendChild(li);
+    });
+}
+</script> --> 
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+
+<div class="header">Amazon Clone 🛍</div>
+
+<div class="nav">
+    <a href="product.html">Home</a>
+    <a href="cart.html">Cart</a>
+    <a href="wishlist.html">Wishlist</a>
+</div>
+
+<h2 style="text-align:center;">Your Cart</h2>
+
+<div class="container" id="cartList">
+  <!-- Items will be dynamically added here -->
+</div>
+
+<p id="totalPrice" style="text-align:center; font-weight:bold; font-size:18px;"></p>
+
+</body>
+</html>
