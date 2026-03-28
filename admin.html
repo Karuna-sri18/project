@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h2>Admin Panel</h2>
+
+<button onclick="loadPending()">Load Users</button>
+<div id="users"></div>
+
+<script>
+async function loadPending() {
+
+    let res = await fetch("http://localhost:5000/pending");
+    let data = await res.json();
+
+    let div = document.getElementById("users");
+    div.innerHTML = "";
+
+    data.forEach(u => {
+        div.innerHTML += `
+        <p>${u.email}
+        <button onclick="approve('${u.email}')">Approve</button></p>
+        `;
+    });
+}
+
+async function approve(email) {
+    await fetch("http://localhost:5000/approve", {
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({email})
+    });
+
+    alert("Approved");
+    loadPending();
+}
+</script>
+
+</body>
+</html>
