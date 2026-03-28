@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script src="script.js"></script>
+
+<h2>Select Login Method</h2>
+
+<select id="method">
+    <option value="otp">OTP</option>
+    <option value="magic">Magic Link</option>
+    <option value="mfa">MFA</option>
+</select><br>
+
+<button onclick="sendMethod()">Send</button>
+
+<!-- OTP -->
+<div id="otpDiv" style="display:none;">
+    <h3>Enter OTP</h3>
+    <input id="otp" placeholder="Enter OTP">
+    <button onclick="verifyOtp()">Verify</button>
+</div>
+
+<!-- MAGIC LINK -->
+<div id="magicDiv" style="display:none;">
+    <h3>Paste Magic Token</h3>
+    <input id="magicInput" placeholder="Paste token from email">
+    <button onclick="verifyMagic()">Verify</button>
+</div>
+
+<!-- MFA -->
+<div id="mfaDiv" style="display:none;">
+    <h3>MFA Verification</h3>
+
+    <input id="mfaPass" type="password" placeholder="Enter Password"><br>
+    <input id="mfaOtp" placeholder="Enter OTP"><br>
+
+    <button onclick="verifyMFA()">Verify</button>
+</div>
